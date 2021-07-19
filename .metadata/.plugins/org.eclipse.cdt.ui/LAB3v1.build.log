@@ -1,0 +1,7 @@
+15:11:40 **** Clean-only build of configuration Debug for project LAB3v1 ****
+make -r -j12 clean 
+rm -rf  ./src/LAB3v1.o ./src/cr_startup_lpc175x_6x.o ./src/crp.o  ./src/LAB3v1.d ./src/cr_startup_lpc175x_6x.d ./src/crp.d  LAB3v1.axf
+ 
+
+15:11:41 Build Finished. 0 errors, 0 warnings. (took 99ms)
+

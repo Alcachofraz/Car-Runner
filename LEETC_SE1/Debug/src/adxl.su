@@ -1,0 +1,8 @@
+adxl.c:26:13:getDataRate	16	static
+adxl.c:44:13:ADXL_ChipSelect	16	static
+adxl.c:49:16:ADXL_Transfer	24	static
+adxl.c:56:9:ADXL_Init	24	static
+adxl.c:108:13:ADXL_BareGetAxis	24	static
+adxl.c:118:6:ADXL_GetAxis	24	static
+adxl.c:128:5:ADXL_GetDevId	8	static
+adxl.c:135:7:ADXL_AxisTask	32	static

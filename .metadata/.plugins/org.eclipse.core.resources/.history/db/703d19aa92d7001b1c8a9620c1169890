@@ -1,0 +1,354 @@
+/*
+ * main.h
+ *
+ *  Created on: 24 Jun 2021
+ *      Author: PedroG
+ */
+
+#ifndef CAR_RUNNER_RTOS_H_
+#define CAR_RUNNER_RTOS_H_
+
+/** @defgroup CAR_RUNNER_RTOS CAR_RUNNER_RTOS
+ * This package provides the Car Runner Mini-Game in RTOS.
+ * @{
+ */
+
+/** @defgroup CAR_RUNNER_RTOS_Public_Functions CAR_RUNNER_RTOS Public Functions
+ * @{
+ */
+
+
+/**
+ *
+ *
+ * Includes
+ *
+ *
+ */
+
+#include <cr_section_macros.h>
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+
+#include "score.h"
+
+#include "wait.h"
+#include "lcd.h"
+#include "adxl.h"
+#include "button.h"
+#include "rtc.h"
+
+// Kernel includes.
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+
+
+
+/**
+ *
+ *
+ * Macros and data structures:
+ *
+ *
+ */
+
+#define TASK_ACC_PRIORITY tskIDLE_PRIORITY + 1
+#define TASK_BUTTONS_PRIORITY tskIDLE_PRIORITY + 1
+#define TASK_POINTS_PRIORITY tskIDLE_PRIORITY + 1
+#define TASK_STATE_MACHINE_PRIORITY tskIDLE_PRIORITY + 1
+#define TASK_IDLE_PRIORITY tskIDLE_PRIORITY + 1
+#define TASK_SHOW_SCORES_PRIORITY tskIDLE_PRIORITY + 1
+
+#define TASK_ACC_STACK_SIZE configMINIMAL_STACK_SIZE*4
+#define TASK_BUTTONS_STACK_SIZE configMINIMAL_STACK_SIZE*4
+#define TASK_POINTS_STACK_SIZE configMINIMAL_STACK_SIZE*4
+#define TASK_STATE_MACHINE_STACK_SIZE configMINIMAL_STACK_SIZE*4
+#define TASK_IDLE_STACK_SIZE configMINIMAL_STACK_SIZE*4
+#define TASK_SHOW_SCORES_STACK_SIZE configMINIMAL_STACK_SIZE*4
+
+/**
+ * @brief	States of the state machine:
+ */
+typedef enum
+{
+	STATE_IDLE = 0, /*!< Main menu. */
+	STATE_CONFIG = 1, /*!< Configuration menu. */
+	STATE_CONFIG_DATE = 2, /*!< Date configuration. */
+	STATE_CONFIG_NAME = 3, /*!< Name configuration. */
+	STATE_CONFIG_ERASE_SCORES = 4, /*!< Clear scores. */
+	STATE_SCORES_ERASED = 5, /*!< Screen indicating scores were erased. */
+	STATE_PREGAME = 6, /*!< Screen that waits for user to ready up. */
+	STATE_INGAME = 7, /*!< Actual game. */
+	STATE_POSTGAME = 8 /*!< Screen that shows user's score. */
+} STATE;
+
+/**
+ * @brief	Idle mode for Idle Task:
+ */
+typedef enum
+{
+	IDLE_SHOW_DATE, /*!< Idle task showing date. */
+	IDLE_SHOW_SCORES /*!< Idle task showing score. */
+} IDLE_MODE;
+
+/**
+ * @brief	Number of entries in Configuration Mode menu.
+ * @note    Shouldn't be changed.
+ */
+#define CONFIG_OPTIONS 3
+
+/**
+ * @brief	Number of time fields to configure in Time Configuration Mode.
+ * @note    Shouldn't be changed.
+ */
+#define TIME_CONFIG_FIELDS 6
+
+/**
+ * @brief	Necessary time to hold buttons, in order to enter/exit Configuration Mode.
+ */
+#define BUTTONS_HOLD_TIME 2000000
+
+/**
+ * @brief	Time between different scores being displayed, in Idle Mode.
+ */
+#define SCORE_SHOW_TIME 3000000
+
+/**
+ * @brief	Blinking time, used to highlight fields.
+ */
+#define HIGHLIGHT_BLINK_TIME 300000
+
+/**
+ * @brief	Game update rate (i.e. time in us between each "frame"), in Game Mode.
+ */
+#define GAME_RATE 300000
+
+/**
+ * @brief	Fuel tank decrement rate, in Game Mode.
+ */
+#define FUEL_RATE 2000000
+
+/**
+ * @brief   Column in which user will visualise the car (should be < 10).
+ */
+#define CAR_POSITION 3
+
+/**
+ * @brief   Columns with no obstacles as of starting the game.
+ */
+#define INITIAL_OBSTACLE_GAP CAR_POSITION + 5
+
+/**
+ * @brief   Maximum fuel.
+ * @note    Shouldn't be changed.
+ */
+#define MAX_FUEL 8
+
+/**
+ * @brief	Value ADXL345's Y-Axis needs to surpass, to count as row change.
+ */
+#define INCLINATION_THRESHOLD 60
+
+/**
+ * @brief	LCD special char for Car Back.
+ * @note    Shouldn't be changed.
+ */
+#define CAR_BACK_CHAR 0
+
+/**
+ * @brief	LCD special char for Car Front.
+ * @note    Shouldn't be changed.
+ */
+#define CAR_FRONT_CHAR 1
+
+/**
+ * @brief	LCD special char for Fuel Galleon.
+ * @note    Shouldn't be changed.
+ */
+#define FUEL_CHAR 3
+
+/**
+ * @brief	LCD special char for Fuel indicator at 1/4.
+ * @note    Shouldn't be changed.
+ */
+#define FUEL1_CHAR 4
+
+/**
+ * @brief	LCD special char for Fuel indicator at 2/4.
+ * @note    Shouldn't be changed.
+ */
+#define FUEL2_CHAR 5
+
+/**
+ * @brief	LCD special char for Fuel indicator at 3/4.
+ * @note    Shouldn't be changed.
+ */
+#define FUEL3_CHAR 6
+
+/**
+ * @brief	LCD special char for Fuel indicator at 4/4.
+ * @note    Shouldn't be changed.
+ */
+#define FUEL4_CHAR 7
+
+/**
+ * @brief	LCD special char for Barrier.
+ * @note    Shouldn't be changed.
+ */
+#define BARRIER_CHAR 2
+
+/**
+ * @brief	Structure that will hold the Car's current location on the LCD.
+ */
+typedef struct {
+	int row; /*!< Current LCD row car is in */
+	int last_row; /*!< LCD row car was last frame */
+	int front_column; /*!< Current column car front is in */
+	int back_column; /*!< Current column car back is in */
+} CAR;
+
+/**
+ * @brief	Char map for Car Back.
+ */
+unsigned char car_back_charmap[] = {
+	0x00,
+	0x06,
+	0x07,
+	0x06,
+	0x07,
+	0x06,
+	0x00,
+	0x00
+};
+
+/**
+ * @brief	Char map for Fuel Galleon.
+ */
+unsigned char fuel_charmap[] = {
+	0x00,
+	0x1C,
+	0x07,
+	0x0F,
+	0x0F,
+	0x0F,
+	0x00,
+	0x00
+};
+
+/**
+ * @brief	Char map for Car Front.
+ */
+unsigned char car_front_charmap[] = {
+	0x00,
+	0x0C,
+	0x1E,
+	0x02,
+	0x1E,
+	0x0C,
+	0x00,
+	0x00
+};
+
+/**
+ * @brief	Char map for Barrier.
+ */
+unsigned char barrier_charmap[] = {
+	0x02,
+	0x0E,
+	0x02,
+	0x02,
+	0x02,
+	0x0E,
+	0x02,
+	0x00
+};
+
+/**
+ * @brief	Char map for 4/4 fuel indicator.
+ */
+unsigned char fuel4_charmap[] = {
+	0x1f,
+	0x1f,
+	0x1f,
+	0x1f,
+	0x1f,
+	0x1f,
+	0x1f,
+	0x1f
+};
+
+/**
+ * @brief	Char map for 3/4 fuel indicator.
+ */
+unsigned char fuel3_charmap[] = {
+	0x00,
+	0x00,
+	0x1f,
+	0x1f,
+	0x1f,
+	0x1f,
+	0x1f,
+	0x1f
+};
+
+/**
+ * @brief	Char map for 2/4 fuel indicator.
+ */
+unsigned char fuel2_charmap[] = {
+	0x00,
+	0x00,
+	0x00,
+	0x00,
+	0x1f,
+	0x1f,
+	0x1f,
+	0x1f
+};
+
+/**
+ * @brief	Char map for 1/4 fuel indicator.
+ */
+unsigned char fuel1_charmap[] = {
+	0x00,
+	0x00,
+	0x00,
+	0x00,
+	0x00,
+	0x00,
+	0x1f,
+	0x1f
+};
+
+
+/**
+ *
+ *
+ * Tasks:
+ *
+ *
+ */
+
+void taskACC(void *pvParameters);
+void taskBUTTONS(void *pvParameters);
+void taskPOINTS(void *pvParameters);
+void taskSTATE_MACHINE(void *pvParameters);
+void taskIDLE(void *pvParameters);
+void taskSHOW_SCORES(void *pvParameters);
+
+
+/**
+ * @}
+ */
+
+
+/**
+ * @}
+ */
+
+
+#endif /* MAIN_H_ */

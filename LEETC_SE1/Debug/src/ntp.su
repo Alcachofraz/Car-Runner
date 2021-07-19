@@ -1,0 +1,3 @@
+ntp.c:16:17:ntohl	16	static
+ntp.c:21:6:NTP_Init	8	static
+ntp.c:26:10:NTP_GetSeconds	104	static

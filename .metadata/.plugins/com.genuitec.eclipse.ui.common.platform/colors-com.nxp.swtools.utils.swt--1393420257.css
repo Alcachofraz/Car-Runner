@@ -1,0 +1,14 @@
+/** Import base css of swtools*/
+@import url("e4-base_swtools_prefs_rule.css");
+/* ############################## Sw Tools preferences ############################## */
+
+
+Text[state='ok']{
+background-color: #3c4349;
+color: #d8dcdf;
+}
+
+ReadOnlyText {
+background-color: #272c30;
+color: #c7cdd1;
+}

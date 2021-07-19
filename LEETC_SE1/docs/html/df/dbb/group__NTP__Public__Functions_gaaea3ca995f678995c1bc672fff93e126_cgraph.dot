@@ -1,0 +1,44 @@
+digraph "NETWORK_ConnectToAP"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="NETWORK_ConnectToAP",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Connect to Access Point."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ESP_ConfigureConnection",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#gad1172b7a535c2678c8bbe1db089cd196",tooltip="Set Connection type."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ESP_WaitForString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#gaaa031656f1467f8d302b17349822fd6c",tooltip="Wait for ESP to meet one of a certain amount of string responses."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="ESP_ReadString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#gab3ac3e22bd5d3af617d024763c4b4843",tooltip="Receive AT string response."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="UART_ReadString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d63/group__UART__Public__Functions.html#ga39f2fc334213dfb77bcac2a1bbe63dc8",tooltip="Read String from RX FIFO."];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="ESP_WriteString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#ga01e79db46c954dbb88aae6ce6e2b20d9",tooltip="Send AT string."];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="UART_WriteString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d63/group__UART__Public__Functions.html#ga116b2755b0c29a93ba7d67b5a9566f2e",tooltip="Write String to TX FIFO."];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="ESP_Connect",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#ga7d6c3a9129e7011d0a3c0f6840048b9c",tooltip="Connect to an access point."];
+  Node8 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="ESP_EnableEcho",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#gae3ab3025fbaec312fa7123b0ecbbc844",tooltip="Enable/disable command echoing."];
+  Node9 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="ESP_Init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#ga9a0d3a20b68c942ba2ddacbb2f44fe94",tooltip="Test if ESP-8266 module is properly started."];
+  Node10 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="ESP_GetChar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#gaad1c5cac766dafc52e74c6a267997701",tooltip="Receive a character from ESP, if there is one."];
+  Node11 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="UART_GetChar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d63/group__UART__Public__Functions.html#gaee3d05fc74176cdd35292836a99fb56a",tooltip="Get character from RX FIFO."];
+  Node10 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="UART_Init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d63/group__UART__Public__Functions.html#ga03c38306a8050c6c8934c578d971e736",tooltip="Initialise UART."];
+  Node10 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="WAIT_Init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$df/d7c/group__WAIT__Public__Functions.html#ga91b11c310cfddcbf9c635b3e93e30f35",tooltip="Initialises the wait API, using the desired resource."];
+  Node10 -> Node15 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="WAIT_SYS_Ms",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$df/d7c/group__WAIT__Public__Functions.html#ga34ba9bf1116b013304b7c9488afe4d94",tooltip="Waits a number of milliseconds."];
+  Node1 -> Node16 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="ESP_Mode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#gaa69f4bda52711741fb869c0f7a04eeeb",tooltip="Set WiFi mode."];
+  Node16 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

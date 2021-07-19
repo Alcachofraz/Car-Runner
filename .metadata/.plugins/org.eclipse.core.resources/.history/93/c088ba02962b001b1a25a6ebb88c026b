@@ -1,0 +1,73 @@
+/*
+===============================================================================
+ Name        : Test.c
+ Author      : PedroG
+ Version     : 1.0
+ Copyright   : PedroG
+ Description : Test everything LPC1769 related
+===============================================================================
+*/
+
+#ifdef __USE_CMSIS
+#include "LPC17xx.h"
+#endif
+
+#include <cr_section_macros.h>
+#include <stdio.h>
+
+#include "wait.h"
+#include "button.h"
+#include "led.h"
+#include "lcd.h"
+
+unsigned char car_charmap[] = {
+	0x00,
+	0x0A,
+	0x1F,
+	0x13,
+	0x1F,
+	0x0A,
+	0x00,
+	0x00
+};
+
+bool busy = false;
+
+void ih(void) {
+	busy = false;
+}
+
+int main(void) {
+
+    SystemInit();
+    BUTTON_Init();
+    LED_Init(false);
+    WAIT_Init(IRQ0);
+    LCDText_Init();
+    if (WAIT_Init(IRQ3) < 0) printf("Olá\n");
+    LCDText_CreateChar(0, car_charmap);
+
+    LCDText_Locate(1, 3);
+
+    int volatile bitmap = 0;
+    int volatile row = 1;
+
+    printf("BUTTON TO LCD\n");
+
+    while(1) {
+    	if ((bitmap = BUTTON_GetRisingEvents()) != 0) {
+    		if (bitmap & B1) row = 2;
+    		if (bitmap & B2) row = 1;
+
+    		if (!busy) {
+    			LCDText_Clear();
+    			LCDText_Locate(row, 3);
+    			LCDText_WriteChar(0);
+
+    			WAIT_IRQ2_Us(500000, ih);
+    			busy = true;
+    		}
+    	}
+    }
+    return 0;
+}

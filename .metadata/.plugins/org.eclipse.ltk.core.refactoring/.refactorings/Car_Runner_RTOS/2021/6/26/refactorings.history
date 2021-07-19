@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Car_Runner_RTOS/FreeRTOS-template LinkServer Debug.launch&apos; to &apos;Car_Runner_RTOS LinkServer Debug.launch&apos;" description="Rename resource &apos;FreeRTOS-template LinkServer Debug.launch&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="FreeRTOS-template LinkServer Debug.launch" name="Car_Runner_RTOS LinkServer Debug.launch" stamp="1624875408294" updateReferences="true"/>
+</session>

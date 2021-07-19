@@ -1,0 +1,76 @@
+10:40:19 **** Build of configuration Debug for project MQTTPacket ****
+make -r all 
+Building file: ../src/MQTTConnectClient.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__LPC17XX__ -D__NEWLIB__ -I"C:\Users\pedro\Desktop\Projetos\Car-Runner\MQTTPacket\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"src/MQTTConnectClient.d" -MT"src/MQTTConnectClient.o" -MT"src/MQTTConnectClient.d" -o "src/MQTTConnectClient.o" "../src/MQTTConnectClient.c"
+Finished building: ../src/MQTTConnectClient.c
+ 
+Building file: ../src/MQTTConnectServer.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__LPC17XX__ -D__NEWLIB__ -I"C:\Users\pedro\Desktop\Projetos\Car-Runner\MQTTPacket\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"src/MQTTConnectServer.d" -MT"src/MQTTConnectServer.o" -MT"src/MQTTConnectServer.d" -o "src/MQTTConnectServer.o" "../src/MQTTConnectServer.c"
+Finished building: ../src/MQTTConnectServer.c
+ 
+Building file: ../src/MQTTDeserializePublish.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__LPC17XX__ -D__NEWLIB__ -I"C:\Users\pedro\Desktop\Projetos\Car-Runner\MQTTPacket\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"src/MQTTDeserializePublish.d" -MT"src/MQTTDeserializePublish.o" -MT"src/MQTTDeserializePublish.d" -o "src/MQTTDeserializePublish.o" "../src/MQTTDeserializePublish.c"
+Finished building: ../src/MQTTDeserializePublish.c
+ 
+Building file: ../src/MQTTFormat.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__LPC17XX__ -D__NEWLIB__ -I"C:\Users\pedro\Desktop\Projetos\Car-Runner\MQTTPacket\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"src/MQTTFormat.d" -MT"src/MQTTFormat.o" -MT"src/MQTTFormat.d" -o "src/MQTTFormat.o" "../src/MQTTFormat.c"
+Finished building: ../src/MQTTFormat.c
+ 
+Building file: ../src/MQTTPacket.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__LPC17XX__ -D__NEWLIB__ -I"C:\Users\pedro\Desktop\Projetos\Car-Runner\MQTTPacket\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"src/MQTTPacket.d" -MT"src/MQTTPacket.o" -MT"src/MQTTPacket.d" -o "src/MQTTPacket.o" "../src/MQTTPacket.c"
+Finished building: ../src/MQTTPacket.c
+ 
+Building file: ../src/MQTTSerializePublish.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__LPC17XX__ -D__NEWLIB__ -I"C:\Users\pedro\Desktop\Projetos\Car-Runner\MQTTPacket\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"src/MQTTSerializePublish.d" -MT"src/MQTTSerializePublish.o" -MT"src/MQTTSerializePublish.d" -o "src/MQTTSerializePublish.o" "../src/MQTTSerializePublish.c"
+Finished building: ../src/MQTTSerializePublish.c
+ 
+Building file: ../src/MQTTSubscribeClient.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__LPC17XX__ -D__NEWLIB__ -I"C:\Users\pedro\Desktop\Projetos\Car-Runner\MQTTPacket\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"src/MQTTSubscribeClient.d" -MT"src/MQTTSubscribeClient.o" -MT"src/MQTTSubscribeClient.d" -o "src/MQTTSubscribeClient.o" "../src/MQTTSubscribeClient.c"
+Finished building: ../src/MQTTSubscribeClient.c
+ 
+Building file: ../src/MQTTSubscribeServer.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__LPC17XX__ -D__NEWLIB__ -I"C:\Users\pedro\Desktop\Projetos\Car-Runner\MQTTPacket\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"src/MQTTSubscribeServer.d" -MT"src/MQTTSubscribeServer.o" -MT"src/MQTTSubscribeServer.d" -o "src/MQTTSubscribeServer.o" "../src/MQTTSubscribeServer.c"
+Finished building: ../src/MQTTSubscribeServer.c
+ 
+Building file: ../src/MQTTUnsubscribeClient.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__LPC17XX__ -D__NEWLIB__ -I"C:\Users\pedro\Desktop\Projetos\Car-Runner\MQTTPacket\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"src/MQTTUnsubscribeClient.d" -MT"src/MQTTUnsubscribeClient.o" -MT"src/MQTTUnsubscribeClient.d" -o "src/MQTTUnsubscribeClient.o" "../src/MQTTUnsubscribeClient.c"
+Finished building: ../src/MQTTUnsubscribeClient.c
+ 
+Building file: ../src/MQTTUnsubscribeServer.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__LPC17XX__ -D__NEWLIB__ -I"C:\Users\pedro\Desktop\Projetos\Car-Runner\MQTTPacket\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"src/MQTTUnsubscribeServer.d" -MT"src/MQTTUnsubscribeServer.o" -MT"src/MQTTUnsubscribeServer.d" -o "src/MQTTUnsubscribeServer.o" "../src/MQTTUnsubscribeServer.c"
+Finished building: ../src/MQTTUnsubscribeServer.c
+ 
+Building target: libMQTTPacket.a
+Invoking: MCU Archiver
+arm-none-eabi-ar -r  "libMQTTPacket.a"  ./src/MQTTConnectClient.o ./src/MQTTConnectServer.o ./src/MQTTDeserializePublish.o ./src/MQTTFormat.o ./src/MQTTPacket.o ./src/MQTTSerializePublish.o ./src/MQTTSubscribeClient.o ./src/MQTTSubscribeServer.o ./src/MQTTUnsubscribeClient.o ./src/MQTTUnsubscribeServer.o   
+arm-none-eabi-ar: creating libMQTTPacket.a
+Finished building target: libMQTTPacket.a
+ 
+make --no-print-directory post-build
+Performing post-build steps
+arm-none-eabi-size "libMQTTPacket.a" ; # arm-none-eabi-objdump -h -S "libMQTTPacket.a" >"libMQTTPacket.lss"
+   text	   data	    bss	    dec	    hex	filename
+   1023	      0	      0	   1023	    3ff	MQTTConnectClient.o (ex libMQTTPacket.a)
+    789	      0	      0	    789	    315	MQTTConnectServer.o (ex libMQTTPacket.a)
+    378	      0	      0	    378	    17a	MQTTDeserializePublish.o (ex libMQTTPacket.a)
+   1424	     60	      0	   1484	    5cc	MQTTFormat.o (ex libMQTTPacket.a)
+   1692	      0	      4	   1696	    6a0	MQTTPacket.o (ex libMQTTPacket.a)
+    600	      0	      0	    600	    258	MQTTSerializePublish.o (ex libMQTTPacket.a)
+    532	      0	      0	    532	    214	MQTTSubscribeClient.o (ex libMQTTPacket.a)
+    426	      0	      0	    426	    1aa	MQTTSubscribeServer.o (ex libMQTTPacket.a)
+    370	      0	      0	    370	    172	MQTTUnsubscribeClient.o (ex libMQTTPacket.a)
+    328	      0	      0	    328	    148	MQTTUnsubscribeServer.o (ex libMQTTPacket.a)
+ 
+
+10:40:21 Build Finished. 0 errors, 0 warnings. (took 2s.49ms)
+

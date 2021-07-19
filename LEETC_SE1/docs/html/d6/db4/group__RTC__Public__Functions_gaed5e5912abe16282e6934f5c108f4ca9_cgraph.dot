@@ -1,0 +1,10 @@
+digraph "RTC_GetSeconds"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="RTC_GetSeconds",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Gets the RTC time value."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="RTC_GetValue",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d6/db4/group__RTC__Public__Functions.html#ga506e5d1d8d538575e4739d85f4db7ff1",tooltip="Sends current RTC time to desired location."];
+}

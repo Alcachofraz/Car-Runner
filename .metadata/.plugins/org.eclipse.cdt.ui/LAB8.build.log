@@ -1,0 +1,7 @@
+15:11:41 **** Clean-only build of configuration Debug for project LAB8 ****
+make -r -j12 clean 
+rm -rf  ./src/LAB8.o ./src/cr_startup_lpc175x_6x.o ./src/crp.o  ./src/LAB8.d ./src/cr_startup_lpc175x_6x.d ./src/crp.d  LAB8.axf
+ 
+
+15:11:41 Build Finished. 0 errors, 0 warnings. (took 98ms)
+

@@ -1,0 +1,52 @@
+/*
+===============================================================================
+ Name        : LAB4.c
+ Author      : PedroG
+ Version     : 1.0
+ Copyright   : 2020-2025 PedroG
+ Description : main definition
+===============================================================================
+*/
+
+#ifdef __USE_CMSIS
+#include "LPC17xx.h"
+#endif
+
+#include <cr_section_macros.h>
+#include <stdio.h>
+#include "wait.h"
+#include "button.h"
+#include "led.h"
+
+void Int_Handler(void);
+
+int main(void) {
+
+    SystemInit();
+    WAIT_IRQ_Init();
+    BUTTON_Init();
+    LED_Init(false);
+
+    printf("BUTTON TO LED\n");
+
+    volatile int bitmap = 0;
+
+    while(1) {
+    	bitmap = BUTTON_Read();
+    	if (bitmap & B1) {
+    	    printf("%d", LED_GetState());
+    	}
+    	else if (bitmap & B2){
+    		WAIT_IRQ_Us(2000000, Int_Handler);
+    	}
+    	else if (bitmap & B3){
+    		LED_Invert();
+    	}
+    	else printf("Unexpected behaviour!\n");
+    }
+    return 0;
+}
+
+void Int_Handler(void) {
+	printf("Interrupção!\n");
+}

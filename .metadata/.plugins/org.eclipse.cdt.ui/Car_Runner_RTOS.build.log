@@ -1,0 +1,6 @@
+12:56:36 **** Incremental Build of configuration Debug for project Car_Runner_RTOS ****
+make -r -j12 all 
+make: Nothing to be done for 'all'.
+
+12:56:37 Build Finished. 0 errors, 0 warnings. (took 99ms)
+

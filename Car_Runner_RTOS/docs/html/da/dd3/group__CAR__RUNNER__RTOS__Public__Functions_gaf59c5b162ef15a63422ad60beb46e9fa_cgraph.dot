@@ -1,0 +1,10 @@
+digraph "timeConfig"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="timeConfig",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="State in which the user may configure RTC time."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="printDateTime",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/dd3/group__CAR__RUNNER__RTOS__Public__Functions.html#ga8c3a2c16fa7006da16775419c372cbcd",tooltip="Receive current Date Time from queueDATE, and print to LCD."];
+}

@@ -1,0 +1,596 @@
+/*
+===============================================================================
+ Name        : Car_Runner.c
+ Author      : PedroG
+ Version     : 1.0
+ Copyright   : PedroG
+ Description : LCD Car game
+===============================================================================
+*/
+
+#ifdef __USE_CMSIS
+#include "LPC17xx.h"
+#endif
+
+#include <cr_section_macros.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "wait.h"
+#include "button.h"
+#include "led.h"
+#include "lcd.h"
+#include "rtc.h"
+
+// Constants:
+#define CONFIG_OPTIONS 2
+#define TIME_CONFIG_FIELDS 6
+#define BUTTONS_HOLD_TIME 2000000
+#define HIGHLIGHT_BLINK_TIME 300000
+#define GAME_SPEED 400000
+
+#define CAR_BACK_CHAR 0
+#define CAR_FRONT_CHAR 1
+#define BARRIER_CHAR 2
+
+// Structure to hold car location on LCD Display:
+typedef struct {
+	int current_row; // Current row car is on
+	int front_column; // Current column front of the car is on
+	int back_column; // Current column back of the car is on
+} CAR;
+
+// Signatures:
+void idleMode(void);
+void invertRow(CAR *car);
+void shiftCar(CAR *car);
+void gameMode(void);
+void updateAndPrintTime(TIME_FIELD without);
+void buttonsHoldHandler(void);
+void blinkHandler(void);
+void configurationMode(void);
+void timeConfig(void);
+
+// Back of the car (character):
+unsigned char car_back_charmap[] = {
+	0x00,
+	0x06,
+	0x07,
+	0x06,
+	0x07,
+	0x06,
+	0x00,
+	0x00
+};
+
+// Front of the car (character):
+unsigned char car_front_charmap[] = {
+	0x00,
+	0x0C,
+	0x1E,
+	0x02,
+	0x1E,
+	0x0C,
+	0x00,
+	0x00
+};
+
+// Obstacle:
+unsigned char barrier_charmap[] = {
+	0x02,
+	0x0E,
+	0x02,
+	0x02,
+	0x02,
+	0x0E,
+	0x02,
+	0x00
+};
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+ * updateAndPrintTime(TIME_FIELD without);
+ *
+ *	Will update read time from RTC and print it to LCD.
+ * 	If 'without' != 'NONE', the desired time field will
+ * be blank (for blinking purposes)
+ */
+void updateAndPrintTime(TIME_FIELD without) {
+
+	struct tm dateTime; // Structure in which RTC time will be written
+	char buf[LCD_DISPLAY_COLUMNS]; // Buffer that will hold the time information
+
+	RTC_GetValue(&dateTime); // Write RTC time to structure
+
+	strftime(buf, LCD_DISPLAY_COLUMNS, "%a %d/%m/%Y", &dateTime); // Send structure information to the buffer
+
+	// Add desired blank field, if 'without' != 'NONE':
+	switch(without) {
+		case DOW:
+			buf[0] = ' ';
+			buf[1] = ' ';
+			buf[2] = ' ';
+			break;
+		case DOM:
+			buf[4] = ' ';
+			buf[5] = ' ';
+			break;
+		case MONTH:
+			buf[7] = ' ';
+			buf[8] = ' ';
+			break;
+		case YEAR:
+			buf[10] = ' ';
+			buf[11] = ' ';
+			buf[12] = ' ';
+			buf[13] = ' ';
+			break;
+		default:
+			break;
+	}
+	LCDText_Locate(1, 1);
+	LCDText_Printf(buf); // Write first half to LCD
+
+	strftime(buf, LCD_DISPLAY_COLUMNS, "%H:%M:%S", &dateTime);
+	switch(without) {
+		case HOUR:
+			buf[0] = ' ';
+			buf[1] = ' ';
+			break;
+		case MIN:
+			buf[3] = ' ';
+			buf[4] = ' ';
+			break;
+		case SEC:
+			buf[6] = ' ';
+			buf[7] = ' ';
+			break;
+		default:
+			break;
+	}
+	LCDText_Locate(2, 1);
+	LCDText_Printf(buf); // Write second half to LCD
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+ * 	Busy variable (tells if timer is busy counting
+ * 	delay for buttons held).
+ */
+bool buttonsHoldBusy = false;
+
+/*
+ * 	Handler for the buttons held delay.
+ * 	Will set busy variable to false.
+ */
+void buttonsHoldHandler(void) {
+	buttonsHoldBusy = false;
+}
+
+/*
+ * idleMode(void);
+ *
+ * Idle Mode: Fundamental state of the program. The so
+ * 	called "menu".
+ * In this state, the program will show 2 different types
+ * of information: time and best score.
+ * 	User may:
+ * 	1 - Press B1 to show time;
+ * 	2 - Press B2 to show the best score;
+ * 	3 - Press B3 to start a game (not implemented);
+ * 	4 - Press and hold B1 and B2 at the same time to enter
+ * "Configuration Mode".
+ */
+void idleMode(void) {
+
+   	int volatile state = 0; // 0 to show time, 1 to show bets score
+   	int volatile events = 0; // Buttons events
+
+   	LCDText_Clear();
+
+	// Wait for user to release buttons, if he's pressing them:
+	while(BUTTON_Hit() & B1) {updateAndPrintTime(NONE);}
+	while(BUTTON_Hit() & B2) {updateAndPrintTime(NONE);}
+	BUTTON_GetButtonsEvents(); // Update previous_state
+
+   	while (1) {
+   		// State Machine:
+   		switch(state) {
+   			case 0: // Showing time
+				updateAndPrintTime(NONE);
+				break;
+   			case 1: // Showing best score
+				LCDText_Locate(1, 1);
+				LCDText_Printf("Pedro");
+				LCDText_Locate(2, 1);
+				LCDText_Printf("48 Pontos");
+				break;
+   		}
+
+   		// Input Handler:
+   		if ((events = BUTTON_GetButtonsEvents()) != 0) {
+			if ((events & B1) && !(BUTTON_Hit() & B1)) { // Show time
+				state = 0;
+				LCDText_Clear();
+			}
+			else if ((events & B2) && !(BUTTON_Hit() & B2)) { // Show best score
+				state = 1;
+				LCDText_Clear();
+			}
+			else if ((events & B3) && !(BUTTON_Hit() & B3)) { // Start a game
+				gameMode();
+			}
+			else if ((BUTTON_Hit() & B1) && (BUTTON_Hit() & B2)) { // Check for buttons hold, and enter Configuration Mode
+				if (buttonsHoldBusy) continue; // If previous interrupt hasn't arrived, get out
+
+				LCDText_Clear();
+				LCDText_Locate(1, 1);
+				LCDText_Printf("Entering config");
+				LCDText_Locate(2, 1);
+				LCDText_Printf("mode...");
+
+				WAIT_IRQ0_Us(BUTTONS_HOLD_TIME, buttonsHoldHandler); // Interrupt in 2 seconds
+				buttonsHoldBusy = true;
+				while (buttonsHoldBusy) {
+					if (!(BUTTON_Hit() & B1) || !(BUTTON_Hit() & B2)) { // If any of the buttons were released
+						break;
+					}
+				}
+				if (!buttonsHoldBusy) {
+					configurationMode(); // If user held the buttons until this point, enter Configuration Mode
+					return;
+				}
+				LCDText_Clear();
+			}
+   		}
+	}
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+ * Row the car was on, last time 'shiftCar()' was called:
+ */
+int busyGame = false;
+
+/*
+ * Row the car was on, last time 'shiftCar()' was called:
+ */
+void busyGameHandler(void) {
+	busyGame = false;
+}
+
+/*
+ * Row the car was on, last time 'shiftCar()' was called:
+ */
+int last_row = 1;
+
+/*
+ * Invert CAR current_row:
+ */
+void invertRow(CAR * car) {
+	car->current_row = (car->current_row == 2) ? 1 : 2;
+}
+
+/*
+ * Shifts car to the left, by 1 column:
+ */
+void shiftCar(CAR *car) {
+	// Erase current car:
+	LCDText_Locate(last_row, car->back_column);
+	LCDText_WriteChar(' ');
+	LCDText_Locate(last_row, car->front_column);
+	LCDText_WriteChar(' ');
+
+	// Increment car position:
+	if (++car->back_column > LCD_DDRAM_LENGTH) car->back_column = 1;
+	if (++car->front_column > LCD_DDRAM_LENGTH) car->front_column = 1;
+
+	// Write car:
+	LCDText_Locate(car->current_row, car->back_column);
+	LCDText_WriteChar(CAR_BACK_CHAR);
+	LCDText_Locate(car->current_row, car->front_column);
+	LCDText_WriteChar(CAR_FRONT_CHAR);
+
+	// Update last_row:
+	last_row = car->current_row;
+}
+
+/*
+ * 	Randomise obstacles (and write to LCD) from row 'from' to
+ * row 'to':
+ */
+void randomizeObstacles(int from, int to, bool o[LCD_DISPLAY_ROWS][LCD_DDRAM_LENGTH]) {
+	for (int i=from; i<=to; i++) {
+		// Erase obstacles from array of obstacles:
+		o[0][i] = false;
+		o[1][i] = false;
+
+		// Erase obstacles from LCD:
+		LCDText_Locate(1, i);
+		LCDText_WriteChar(' ');
+		LCDText_Locate(2, i);
+		LCDText_WriteChar(' ');
+	}
+	srand(RTC_GetSeconds()); // Set randomiser seed to RTC time_t value
+	int col = from;
+	int row;
+	while(col <= to) {
+		// Randomise column:
+		col += rand()%3+3; // Always leave a space of 2-4 columns between each obstacle
+		// Randomise row:
+		row = rand()%2+1;
+
+		// Write obstacle in LCD:
+		LCDText_Locate(row, col);
+		LCDText_WriteChar(BARRIER_CHAR);
+		// Write obstacle in array of obstacles:
+		o[row-1][col-1] = true;
+	}
+}
+
+bool checkLoss(CAR *car, bool o[LCD_DISPLAY_ROWS][LCD_DDRAM_LENGTH]) {
+	return o[car->current_row-1][car->back_column-1] || o[car->current_row-1][car->front_column-1];
+}
+
+/*
+ * gameMode(void);
+ *
+ * 	General Configuration Mode: State of the program
+ * in which the user may:
+ *  1 - Adjust the clock;
+ *  2 - Clear the best score (not implemented).
+ * To do so, navigate through the options, using B1
+ * and B2, and select, using B3.
+ */
+void gameMode(void) {
+
+	LCDText_Clear();
+
+	LCDText_Locate(1, 1);
+	LCDText_Printf("Press any button");
+	LCDText_Locate(2, 1);
+	LCDText_Printf("to start.");
+
+	// Car:
+	CAR car = {.current_row = 1, .front_column = 3, .back_column = 2};
+
+	// Array that represents all current obstacles in LCD DDRAM
+	bool o[LCD_DISPLAY_ROWS][LCD_DDRAM_LENGTH];
+	for (int i=0; i<LCD_DDRAM_LENGTH; i++) {
+		for (int j=0; j<LCD_DISPLAY_ROWS; j++) {
+			o[j][i] = false;
+		}
+	}
+
+	while (BUTTON_GetButtonsEvents() == 0) {} // Wait for user to ready up
+
+	LCDText_Clear();
+
+	randomizeObstacles(5, 40, o); // Randomise obstacles from column 5 to column 40
+
+	while(1) {
+		if ((BUTTON_GetButtonsEvents() & B3) && (BUTTON_Hit() & B3)) {
+			invertRow(&car);
+		}
+		if (!busyGame) {
+			// Before shifting car:
+			if (car.front_column == 23) { // If first display column is column 21
+				randomizeObstacles(1, 20, o);
+			}
+			else if (car.front_column == 3) { // If first display column is column 1
+				randomizeObstacles(21, 40, o);
+			}
+
+			// Shift car:
+			shiftCar(&car);
+
+			// Verify if car hit an obstacle:
+			if (checkLoss(&car, o)) {
+				// Lose:
+				LCDText_Clear();
+				LCDText_Home();
+				LCDText_Printf("Game over...");
+				break;
+			}
+
+			LCDText_ShiftDisplay(LEFT);
+			WAIT_IRQ0_Us(GAME_SPEED, busyGameHandler);
+			busyGame = true;
+		}
+	}
+	LCDText_Clear();
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+ * configurationMode(void);
+ *
+ * 	General Configuration Mode: State of the program
+ * in which the user may:
+ *  1 - Adjust the clock;
+ *  2 - Clear the best score (not implemented).
+ * To do so, navigate through the options, using B1
+ * and B2, and select, using B3.
+ */
+void configurationMode(void) {
+
+	LCDText_Clear();
+
+	LCDText_Locate(1, 1);
+	LCDText_Printf("> Time Config");
+	LCDText_Locate(2, 1);
+	LCDText_Printf("  Score Config");
+
+	// Wait for user to release buttons, if he's pressing them:
+	while(BUTTON_Hit() & B1) {}
+	while(BUTTON_Hit() & B2) {}
+	BUTTON_GetButtonsEvents(); // Update previous_state
+
+	int volatile events = 0; // Buttons events
+	int volatile option = 0; // 0 for time config, 1 for best score config
+
+	while (1) {
+		// State Machine:
+		switch (option) {
+			case 0: // Time Configuration option highlighted
+				LCDText_Locate(1, 1);
+				LCDText_Printf("> Time Config");
+				LCDText_Locate(2, 1);
+				LCDText_Printf("  Score Config");
+				break;
+			case 1: // Best Score Configuration option highlighted
+				LCDText_Locate(1, 1);
+				LCDText_Printf("  Time Config");
+				LCDText_Locate(2, 1);
+				LCDText_Printf("> Score Config");
+				break;
+		}
+
+		// Input Handler Handler:
+		if ((events = BUTTON_GetButtonsEvents()) != 0) {
+			if ((events & B1) && !(BUTTON_Hit() & B1)) { // Go to upper option
+				if (++option > (CONFIG_OPTIONS-1)) option = 0;
+				LCDText_Clear(); // Clear screen
+			}
+			else if ((events & B2) && !(BUTTON_Hit() & B2)) { // Go to lower option
+				if (--option < 0) option = CONFIG_OPTIONS-1;
+				LCDText_Clear(); // Clear screen
+			}
+			else if ((events & B3) && !(BUTTON_Hit() & B3)) { // Select option
+				switch (option) {
+					case 0: // Time Configuration:
+						timeConfig();
+						break;
+					case 1: // Score Configuration:
+						// Not implemented...
+						break;
+				}
+			}
+			else if ((BUTTON_Hit() & B1) && (BUTTON_Hit() & B2)) { // Check for buttons hold, and go back to menu
+				if (buttonsHoldBusy) continue; // If previous interrupt hasn't arrived, get out
+
+				LCDText_Clear();
+				LCDText_Locate(1, 1);
+				LCDText_Printf("Returning to");
+				LCDText_Locate(2, 1);
+				LCDText_Printf("menu...");
+
+				WAIT_IRQ0_Us(BUTTONS_HOLD_TIME, buttonsHoldHandler); // Interrupt in 2 seconds
+				buttonsHoldBusy = 1;
+				while (buttonsHoldBusy) {
+					if (!(BUTTON_Hit() & B1) || !(BUTTON_Hit() & B2)) { // If any of the buttons were released
+						break;
+					}
+				}
+				if (buttonsHoldBusy == 0) break; // If user held the buttons until this point, enter Configuration Mode
+				LCDText_Clear();
+			}
+		}
+	}
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+ * 	Refers to the highlighted field (for blinking
+ * purposes).
+ */
+bool off = false;
+
+/*
+ * 	Busy variable (to create the highlighted field
+ * blinking delay).
+ */
+bool blinkBusy = false;
+
+/*
+ * 	Handler for the blinking delay.
+ * 	Will invert 'off' (for blinking purposes) and
+ * set busy variable to false.
+ */
+void blinkHandler(void) {
+	blinkBusy = false;
+	off = !off;
+}
+
+/*
+ * timeConfig(void);
+ *
+ * 	Time Configuration Mode: User may adjust
+ * the clock, using B1 and B2 to increment and
+ * decrement the highlighted field.
+ * 	To confirm the chosen value, press B3 to
+ * jump to the next field.
+ * 	After going through all fields, program
+ * goes back to General Configuration mode.
+ */
+void timeConfig(void) {
+
+	LCDText_Clear();
+	RTC_Disable(); // Disable RTC counters, to stop the clock while adjusting it
+
+	int volatile events = 0; // Buttons events
+
+	int field = 0; // [0, 5] -> Every time field, excluding day of year and seconds
+	TIME_FIELD timeFields[TIME_CONFIG_FIELDS] = {YEAR, MONTH, DOM, DOW, HOUR, MIN};
+
+	while (1) {
+		if (!blinkBusy) WAIT_IRQ0_Us(300000, blinkHandler); // If it's not busy, start counting
+
+		if (off) updateAndPrintTime(timeFields[field]); // Set field to blank
+		else updateAndPrintTime(NONE); // Set field to its current value
+
+		if ((events = BUTTON_GetButtonsEvents()) != 0) {
+			if ((events & B1) && !(BUTTON_Hit() & B1)) { // Increment
+				RTC_IncrementField(timeFields[field]);
+			}
+			else if ((events & B2) && !(BUTTON_Hit() & B2)) { // Decrement
+				RTC_DecrementField(timeFields[field]);
+			}
+			else if ((events & B3) && !(BUTTON_Hit() & B3)) { // Confirm value
+				LCDText_Clear();
+				if (++field > (TIME_CONFIG_FIELDS-1)) { // If it's the last field
+					RTC_Enable(); // Enable RTC counters again
+					break; // Get out
+				}
+			}
+		}
+	}
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+ * Main:
+ */
+int main(void) {
+
+ 	SystemInit();
+	BUTTON_Init();
+	RTC_Init(0, INONE);
+	if (LCDText_Init() < 0) {
+		printf("LCD could not initialise.\n");
+		return 0;
+	}
+	if (WAIT_Init(IRQ0) < 0) {
+		printf("WAIT Resource 0 could not initialise.\n");
+		return 0;
+	}
+
+	LCDText_CreateChar(CAR_BACK_CHAR, car_back_charmap);
+	LCDText_CreateChar(CAR_FRONT_CHAR, car_front_charmap);
+	LCDText_CreateChar(BARRIER_CHAR, barrier_charmap);
+
+	while(1) {idleMode();}
+
+    return 0 ;
+}

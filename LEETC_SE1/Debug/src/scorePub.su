@@ -1,0 +1,8 @@
+scorePub.c:33:13:MQTT_GetInitialiser	32	static
+scorePub.c:38:6:SCOREPUB_Init	16	static
+scorePub.c:52:13:NETWORK_Init	8	static
+scorePub.c:76:13:NETWORK_Connect	32	static
+scorePub.c:85:12:NETWORK_Send	16	static
+scorePub.c:90:12:NETWORK_Recv	16	static
+scorePub.c:95:6:SCOREPUB_Publish	16	static
+scorePub.c:99:6:SCOREPUB_PublisherTask	328	static

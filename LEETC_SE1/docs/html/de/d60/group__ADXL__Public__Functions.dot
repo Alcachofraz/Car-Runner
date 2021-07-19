@@ -1,0 +1,9 @@
+digraph "ADXL Public Functions"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=box];
+  rankdir=LR;
+  Node1 [label="ADXL Public Functions",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 [label="ADXL",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d92/group__ADXL.html",tooltip="This package provides the core capabilities for adxl functions."];
+  Node2->Node1 [shape=plaintext, dir="back", style="solid"];
+}

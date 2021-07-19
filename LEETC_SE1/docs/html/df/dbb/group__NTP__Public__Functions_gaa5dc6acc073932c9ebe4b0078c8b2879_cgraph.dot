@@ -1,0 +1,20 @@
+digraph "NTP_Init"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="NTP_Init",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ESP_Init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#gaf978104197fb3e733863b1c6232592af",tooltip=" "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ESP_GetChar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#gaad1c5cac766dafc52e74c6a267997701",tooltip="Receive a character from ESP, if there is one."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="UART_GetChar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d63/group__UART__Public__Functions.html#gaee3d05fc74176cdd35292836a99fb56a",tooltip=" "];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="UART_Init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d63/group__UART__Public__Functions.html#ga82285bc1ce75f58b13b422bebd7ccf04",tooltip=" "];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="WAIT_Init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$df/d7c/group__WAIT__Public__Functions.html#ga91b11c310cfddcbf9c635b3e93e30f35",tooltip="Initialises the wait API, using the desired resource."];
+  Node2 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="WAIT_SYS_Ms",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$df/d7c/group__WAIT__Public__Functions.html#ga34ba9bf1116b013304b7c9488afe4d94",tooltip="Waits a number of milliseconds."];
+}

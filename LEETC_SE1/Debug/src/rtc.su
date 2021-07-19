@@ -1,0 +1,10 @@
+rtc.c:17:6:RTC_Init	16	static
+rtc.c:29:6:RTC_GetValue	16	static
+rtc.c:41:6:RTC_SetValue	16	static
+rtc.c:53:8:RTC_GetSeconds	48	static
+rtc.c:60:6:RTC_SetSeconds	16	static
+rtc.c:65:6:RTC_Enable	4	static
+rtc.c:69:6:RTC_Disable	4	static
+rtc.c:73:6:RTC_IncrementField	24	static
+rtc.c:111:6:RTC_DecrementField	24	static
+rtc.c:148:12:getDaysInMonth	24	static

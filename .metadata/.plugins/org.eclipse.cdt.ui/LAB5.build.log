@@ -1,0 +1,27 @@
+16:27:57 **** Build of configuration Debug for project LAB5 ****
+make -r -j12 all 
+Building file: ../src/LAB5.c
+Building file: ../src/cr_startup_lpc175x_6x.c
+Building file: ../src/crp.c
+Invoking: MCU C Compiler
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSIS_CORE_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"C:\Users\pedro\Desktop\LEECT\Semestre 5\SE1\Workplace\LAB5\inc" -I"C:\Users\pedro\Desktop\LEECT\Semestre 5\SE1\Workplace\LEETC_SE1\inc" -I"C:\Users\pedro\Desktop\LEECT\Semestre 5\SE1\Workplace\CMSIS_CORE_LPC17xx\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/LAB5.d" -MT"src/LAB5.o" -MT"src/LAB5.d" -o "src/LAB5.o" "../src/LAB5.c"
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSIS_CORE_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"C:\Users\pedro\Desktop\LEECT\Semestre 5\SE1\Workplace\LAB5\inc" -I"C:\Users\pedro\Desktop\LEECT\Semestre 5\SE1\Workplace\LEETC_SE1\inc" -I"C:\Users\pedro\Desktop\LEECT\Semestre 5\SE1\Workplace\CMSIS_CORE_LPC17xx\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/cr_startup_lpc175x_6x.d" -MT"src/cr_startup_lpc175x_6x.o" -MT"src/cr_startup_lpc175x_6x.d" -o "src/cr_startup_lpc175x_6x.o" "../src/cr_startup_lpc175x_6x.c"
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSIS_CORE_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"C:\Users\pedro\Desktop\LEECT\Semestre 5\SE1\Workplace\LAB5\inc" -I"C:\Users\pedro\Desktop\LEECT\Semestre 5\SE1\Workplace\LEETC_SE1\inc" -I"C:\Users\pedro\Desktop\LEECT\Semestre 5\SE1\Workplace\CMSIS_CORE_LPC17xx\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/crp.d" -MT"src/crp.o" -MT"src/crp.d" -o "src/crp.o" "../src/crp.c"
+Finished building: ../src/crp.c
+ 
+Finished building: ../src/cr_startup_lpc175x_6x.c
+ 
+Finished building: ../src/LAB5.c
+ 
+Building target: LAB5.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\pedro\Desktop\LEECT\Semestre 5\SE1\Workplace\LEETC_SE1\Debug" -L"C:\Users\pedro\Desktop\LEECT\Semestre 5\SE1\Workplace\CMSIS_CORE_LPC17xx\Debug" -Xlinker -Map="LAB5.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "LAB5_Debug.ld" -o "LAB5.axf"  ./src/LAB5.o ./src/cr_startup_lpc175x_6x.o ./src/crp.o   -lLEETC_SE1 -lCMSIS_CORE_LPC17xx
+e:/nxp/mcuxpressoide_11.2.1_4149/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.2.0.202008311134/tools/bin/../lib/gcc/arm-none-eabi/9.2.1/../../../../arm-none-eabi/bin/ld.exe: cannot find -lLEETC_SE1
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:32: LAB5.axf] Error 1
+"make -r -j12 all" terminated with exit code 2. Build might be incomplete.
+
+16:27:58 Build Failed. 2 errors, 0 warnings. (took 378ms)
+

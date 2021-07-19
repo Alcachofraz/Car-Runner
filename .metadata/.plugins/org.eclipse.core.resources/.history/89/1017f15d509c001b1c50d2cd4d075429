@@ -1,0 +1,60 @@
+/*
+===============================================================================
+ Name        : LAB8.c
+ Author      : PedroG
+ Version     : 1.0
+ Copyright   : PedroG
+ Description : Program to test EEPROM
+===============================================================================
+*/
+
+#ifdef __USE_CMSIS
+#include "LPC17xx.h"
+#endif
+
+#include <cr_section_macros.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "wait.h"
+#include "button.h"
+#include "led.h"
+#include "lcd.h"
+#include "rtc.h"
+#include "flash.h"
+#include "eeprom.h"
+
+int main(void) {
+
+	SystemInit();
+	BUTTON_Init();
+	EEPROM_Init();
+
+	if (LCDText_Init() < 0) {
+		printf("LCD could not initialise.\n");
+		return 0;
+	}
+
+	char * receive = malloc(5);
+	char * buffer = malloc(5);
+	buffer[0] = 'l';
+	buffer[1] = 'e';
+	buffer[2] = 'a';
+	buffer[3] = 'h';
+	buffer[4] = 'h';
+
+	printf("%s", buffer);
+	LCDText_Locate(1, 1);
+	LCDText_Printf("%s", buffer);
+
+	printf("%d\n", EEPROM_Write(buffer, 4));
+	printf("%d\n", EEPROM_Read(receive, 4));
+
+	printf("%s", receive);
+	LCDText_Locate(2, 1);
+	LCDText_Printf("%s", receive);
+
+    while(1) {}
+    return 0 ;
+}

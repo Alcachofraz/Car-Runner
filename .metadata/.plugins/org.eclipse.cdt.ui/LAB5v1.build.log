@@ -1,0 +1,27 @@
+09:51:40 **** Build of configuration Debug for project LAB5v1 ****
+make -r -j4 all 
+Building file: ../src/LABv1.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSIS_CORE_LPC17xx -D__LPC17XX__ -D__REDLIB__ -I"C:\Users\Pedro\Desktop\LEETC\SE1\MCUXpressoIDE_11.2.1_4149\workspace\LAB5v1\inc" -I"C:\Users\Pedro\Desktop\LEETC\SE1\MCUXpressoIDE_11.2.1_4149\workspace\LEETC_SE1\inc" -I"C:\Users\Pedro\Desktop\LEETC\SE1\MCUXpressoIDE_11.2.1_4149\workspace\CMSIS_CORE_LPC17xx\inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -fstack-usage -specs=redlib.specs -MMD -MP -MF"src/LABv1.d" -MT"src/LABv1.o" -MT"src/LABv1.d" -o "src/LABv1.o" "../src/LABv1.c"
+../src/LABv1.c:27:25: error: unknown type name 'TIME_FIELD'; did you mean 'RTC_TIME_FIELD'?
+   27 | void updateAndPrintTime(TIME_FIELD without);
+      |                         ^~~~~~~~~~
+      |                         RTC_TIME_FIELD
+../src/LABv1.c:64:25: error: unknown type name 'TIME_FIELD'; did you mean 'RTC_TIME_FIELD'?
+   64 | void updateAndPrintTime(TIME_FIELD without) {
+      |                         ^~~~~~~~~~
+      |                         RTC_TIME_FIELD
+../src/LABv1.c: In function 'idleMode':
+../src/LABv1.c:149:5: warning: implicit declaration of function 'updateAndPrintTime' [-Wimplicit-function-declaration]
+  149 |     updateAndPrintTime(NONE);
+      |     ^~~~~~~~~~~~~~~~~~
+../src/LABv1.c: In function 'timeConfig':
+../src/LABv1.c:339:2: error: unknown type name 'TIME_FIELD'; did you mean 'RTC_TIME_FIELD'?
+  339 |  TIME_FIELD timeFields[TIME_CONFIG_FIELDS] = {YEAR, MONTH, DOM, DOW, HOUR, MIN};
+      |  ^~~~~~~~~~
+      |  RTC_TIME_FIELD
+make: *** [src/subdir.mk:26: src/LABv1.o] Error 1
+"make -r -j4 all" terminated with exit code 2. Build might be incomplete.
+
+09:51:41 Build Failed. 4 errors, 1 warnings. (took 480ms)
+

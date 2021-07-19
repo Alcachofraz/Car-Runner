@@ -1,0 +1,18 @@
+digraph "ESP_Mode"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="ESP_Mode",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Set WiFi mode."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ESP_WaitForString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#gaaa031656f1467f8d302b17349822fd6c",tooltip="Wait for ESP to meet one of a certain amount of string responses."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ESP_ReadString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#gab3ac3e22bd5d3af617d024763c4b4843",tooltip="Receive AT string response."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="UART_ReadString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d63/group__UART__Public__Functions.html#ga39f2fc334213dfb77bcac2a1bbe63dc8",tooltip="Read String from RX FIFO."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ESP_WriteString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#ga01e79db46c954dbb88aae6ce6e2b20d9",tooltip="Send AT string."];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="UART_WriteString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d63/group__UART__Public__Functions.html#ga116b2755b0c29a93ba7d67b5a9566f2e",tooltip="Write String to TX FIFO."];
+}

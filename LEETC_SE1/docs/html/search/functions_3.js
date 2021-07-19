@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['flash_5ferasesectors_624',['FLASH_EraseSectors',['../d6/d20/group__FLASH__Public__Functions.html#ga698f741fbd7c45bf458536045c2bd495',1,'FLASH_EraseSectors(unsigned int startSector, unsigned int endSector):&#160;flash.c'],['../d6/d20/group__FLASH__Public__Functions.html#ga698f741fbd7c45bf458536045c2bd495',1,'FLASH_EraseSectors(unsigned int startSector, unsigned int endSector):&#160;flash.c']]],
+  ['flash_5fverifydata_625',['FLASH_VerifyData',['../d6/d20/group__FLASH__Public__Functions.html#ga34f8a70dbbe55c632a9135db50dce515',1,'FLASH_VerifyData(void *dstAddr, void *srcAddr, unsigned int size):&#160;flash.c'],['../d6/d20/group__FLASH__Public__Functions.html#ga34f8a70dbbe55c632a9135db50dce515',1,'FLASH_VerifyData(void *dstAddr, void *srcAddr, unsigned int size):&#160;flash.c']]],
+  ['flash_5fwritedata_626',['FLASH_WriteData',['../d6/d20/group__FLASH__Public__Functions.html#ga24cbf8c69fe8ee6a72d9938c92b652cb',1,'FLASH_WriteData(unsigned int sector, void *dstAddr, void *srcAddr, unsigned int size):&#160;flash.c'],['../d6/d20/group__FLASH__Public__Functions.html#ga24cbf8c69fe8ee6a72d9938c92b652cb',1,'FLASH_WriteData(unsigned int sector, void *dstAddr, void *srcAddr, unsigned int size):&#160;flash.c']]]
+];

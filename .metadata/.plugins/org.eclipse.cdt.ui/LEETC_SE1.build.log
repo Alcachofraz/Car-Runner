@@ -1,0 +1,6 @@
+17:49:13 **** Incremental Build of configuration Debug for project LEETC_SE1 ****
+make -r all 
+make: Nothing to be done for 'all'.
+
+17:49:13 Build Finished. 0 errors, 0 warnings. (took 109ms)
+

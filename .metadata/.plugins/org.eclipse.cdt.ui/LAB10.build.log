@@ -1,0 +1,24 @@
+17:25:38 **** Incremental Build of configuration Debug for project LAB10 ****
+make -r -j8 all 
+Building file: ../src/main.c
+Invoking: MCU C Compiler
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M3 -D__USE_CMSIS=CMSIS_CORE_LPC17xx -D__LPC17XX__ -D__NEWLIB__ -I"C:\Users\sergi\Dropbox\My PC (LAPTOP-R7PVOMT6)\Desktop\Pedro\Car-Runner\LAB10\inc" -I"C:\Users\sergi\Dropbox\My PC (LAPTOP-R7PVOMT6)\Desktop\Pedro\Car-Runner\LEETC_SE1\inc" -I"C:\Users\sergi\Dropbox\My PC (LAPTOP-R7PVOMT6)\Desktop\Pedro\Car-Runner\CMSIS_CORE_LPC17xx\inc" -I"C:\Users\sergi\Dropbox\My PC (LAPTOP-R7PVOMT6)\Desktop\Pedro\Car-Runner\FreeRTOS-Kernel\include" -I"C:\Users\sergi\Dropbox\My PC (LAPTOP-R7PVOMT6)\Desktop\Pedro\Car-Runner\FreeRTOS-Kernel\src\portable" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"=. -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -specs=nano.specs -MMD -MP -MF"src/main.d" -MT"src/main.o" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: LAB10.axf
+Invoking: MCU Linker
+arm-none-eabi-gcc -nostdlib -L"C:\Users\sergi\Dropbox\My PC (LAPTOP-R7PVOMT6)\Desktop\Pedro\Car-Runner\LEETC_SE1\Debug" -L"C:\Users\sergi\Dropbox\My PC (LAPTOP-R7PVOMT6)\Desktop\Pedro\Car-Runner\CMSIS_CORE_LPC17xx\Debug" -L"C:\Users\sergi\Dropbox\My PC (LAPTOP-R7PVOMT6)\Desktop\Pedro\Car-Runner\FreeRTOS-Kernel\Debug" -Xlinker -Map="LAB10.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "FreeRTOS-template_Debug.ld" -o "LAB10.axf"  ./src/cr_startup_lpc175x_6x-FreeRTOS.o ./src/crp.o ./src/main.o ./src/printf-stdarg.o   -lLEETC_SE1 -lCMSIS_CORE_LPC17xx -lFreeRTOS-Kernel
+Memory region         Used Size  Region Size  %age Used
+       MFlash512:       12412 B       512 KB      2.37%
+c:/nxp/mcuxpressoide_11.3.0_5222/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.3.0.202008311133/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/bin/ld.exe: C:\Users\sergi\Dropbox\My PC (LAPTOP-R7PVOMT6)\Desktop\Pedro\Car-Runner\FreeRTOS-Kernel\Debug\libFreeRTOS-Kernel.a(tasks.o): in function `vTaskStartScheduler':
+        RamLoc32:       12624 B        32 KB     38.53%
+C:\Users\sergi\Dropbox\My PC (LAPTOP-R7PVOMT6)\Desktop\Pedro\Car-Runner\FreeRTOS-Kernel\Debug/../src/tasks.c:2069: undefined reference to `vConfigureTimerForRunTimeStats'
+        RamAHB32:          0 GB        32 KB      0.00%
+c:/nxp/mcuxpressoide_11.3.0_5222/ide/plugins/com.nxp.mcuxpresso.tools.win32_11.3.0.202008311133/tools/bin/../lib/gcc/arm-none-eabi/9.3.1/../../../../arm-none-eabi/bin/ld.exe: C:\Users\sergi\Dropbox\My PC (LAPTOP-R7PVOMT6)\Desktop\Pedro\Car-Runner\FreeRTOS-Kernel\Debug\libFreeRTOS-Kernel.a(tasks.o): in function `vTaskSwitchContext':
+C:\Users\sergi\Dropbox\My PC (LAPTOP-R7PVOMT6)\Desktop\Pedro\Car-Runner\FreeRTOS-Kernel\Debug/../src/tasks.c:3030: undefined reference to `vApplicationStackOverflowHook'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:32: LAB10.axf] Error 1
+"make -r -j8 all" terminated with exit code 2. Build might be incomplete.
+
+17:25:39 Build Failed. 5 errors, 0 warnings. (took 1s.120ms)
+

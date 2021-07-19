@@ -1,0 +1,9 @@
+score.c:19:6:SCORE_Init	16	static
+score.c:25:13:SCORE_FLASH_GetAll	16	static
+score.c:29:13:SCORE_EEPROM_GetAll	16	static
+score.c:33:13:SCORE_FLASH_SetAll	272	static
+score.c:47:13:SCORE_EEPROM_SetAll	16	static
+score.c:51:5:SCORE_Get	72	static
+score.c:70:6:SCORE_Sort	40	static
+score.c:83:6:SCORE_Save	144	static
+score.c:140:6:SCORE_Erase	56	static

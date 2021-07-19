@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;LEETC_SE1/inc/e2prom.h&apos; to &apos;eeprom.h&apos;" description="Rename resource &apos;e2prom.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="inc/e2prom.h" name="eeprom.h" stamp="1617143017958" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;LEETC_SE1/src/e2prom.c&apos; to &apos;eeprom.c&apos;" description="Rename resource &apos;e2prom.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/e2prom.c" name="eeprom.c" stamp="1617143025331" updateReferences="true"/>
+</session>

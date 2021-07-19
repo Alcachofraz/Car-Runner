@@ -1,0 +1,7 @@
+button.c:20:6:BUTTON_Init	8	static
+button.c:26:9:BUTTON_Hit	4	static
+button.c:30:9:BUTTON_Read	16	static
+button.c:38:10:BUTTON_GetButtonsEvents	24	static
+button.c:52:10:BUTTON_GetButtonsPushEvents	24	static
+button.c:66:10:BUTTON_GetButtonsReleaseEvents	24	static
+button.c:80:6:BUTTON_WaitRelease	16	static

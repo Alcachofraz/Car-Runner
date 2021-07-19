@@ -1,0 +1,17 @@
+core_cm3.h:1323:22:NVIC_EnableIRQ	16	static
+i2c.c:37:17:I2C_GetPCLK	4	static
+i2c.c:52:12:I2C_IsEnabled	16	static
+i2c.c:57:6:I2C1_IRQHandler	4	static
+i2c.c:154:6:I2C2_IRQHandler	4	static
+i2c.c:243:6:I2C1_Init	8	static
+i2c.c:268:6:I2C2_Init	8	static
+i2c.c:293:5:I2C1_Configure	32	static
+i2c.c:308:5:I2C2_Configure	32	static
+i2c.c:323:5:I2C1_Start	16	static
+i2c.c:333:5:I2C2_Start	16	static
+i2c.c:344:6:I2C1_Stop	4	static
+i2c.c:353:6:I2C2_Stop	4	static
+i2c.c:362:5:I2C1_Engine	16	static
+i2c.c:379:5:I2C2_Engine	16	static
+i2c.c:396:6:I2C1_GetBuffer	16	static
+i2c.c:400:6:I2C2_GetBuffer	16	static

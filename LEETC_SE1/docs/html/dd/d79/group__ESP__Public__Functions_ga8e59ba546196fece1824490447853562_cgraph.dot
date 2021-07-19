@@ -1,0 +1,22 @@
+digraph "ESP_Ip"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="ESP_Ip",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Get the current local IPv4 address."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ESP_ReadChar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#ga780aa9e61c953788b63e5bb2a56267e7",tooltip="Receive a character from ESP."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="UART_ReadChar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d63/group__UART__Public__Functions.html#ga8c01966ac3ecb342d33d0a09e12bbe89",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="ESP_WaitForString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#ga26df553a17ec65242c085387c7e19627",tooltip="Wait for ESP to meet one of a certain amount of string responses."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ESP_ReadString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#gafae4abdb43fd79a1e0378003424f5276",tooltip="Receive AT string response."];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="UART_ReadString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d63/group__UART__Public__Functions.html#ga67c96ee73b5bff94b41b74fc8acab472",tooltip=" "];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="ESP_WriteString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d79/group__ESP__Public__Functions.html#ga01e79db46c954dbb88aae6ce6e2b20d9",tooltip="Send AT string."];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="UART_WriteString",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d63/group__UART__Public__Functions.html#ga116b2755b0c29a93ba7d67b5a9566f2e",tooltip=" "];
+}

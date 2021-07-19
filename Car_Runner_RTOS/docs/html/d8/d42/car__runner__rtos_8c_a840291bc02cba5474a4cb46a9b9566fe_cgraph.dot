@@ -1,0 +1,30 @@
+digraph "main"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="main",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="printf",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dc/dc3/printf-stdarg_8c.html#a98631211a4a8aee62f572375d5b637be",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="SCORE_Init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/dfe/group__SCORE__Public__Functions.html#gae7d202736ea0fd9df2836591213341c3",tooltip="Initialises Score Saver and Publisher, in the desired memory device."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="taskBLINK",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/dd3/group__CAR__RUNNER__RTOS__Public__Functions.html#ga99d59922f8273f7e7fc5165cb230a0b6",tooltip="Task to invert blinked value, every HIGHLIGHT_BLINK_TIME ms. This variable indicates which score shou..."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="taskDATE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/dd3/group__CAR__RUNNER__RTOS__Public__Functions.html#gab8f804134f8b859f51365be045464bda",tooltip="Task to periodically get date from RTC, and overwrite queueDATE with the most recent object."];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="sprintf",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dc/dc3/printf-stdarg_8c.html#aa0649118bc3728b2a62af0b47606ff51",tooltip=" "];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="taskFUEL",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/dd3/group__CAR__RUNNER__RTOS__Public__Functions.html#gabf9d874c81085e9b2418049c9a9a9167",tooltip="Task to decrement fuel, every FUEL_RATE ms."];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="taskNETWORK_MANAGER",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/dd3/group__CAR__RUNNER__RTOS__Public__Functions.html#ga1df002ef0ce3efa2aaf3043adea0f829",tooltip="Task to manage Network functionalities."];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="taskPOINTS",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/dd3/group__CAR__RUNNER__RTOS__Public__Functions.html#gaed05f65a1159cf70c223761f037d9a1c",tooltip="Task to increment points variable, every POINTS_RATE ms."];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="taskSCORE_COUNT",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/dd3/group__CAR__RUNNER__RTOS__Public__Functions.html#ga1646f7c964af82abc79de52c5b5c49fe",tooltip="Task to increment scoreCount, every SCORE_SHOW_TIME ms. This variable indicates which score should be..."];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="taskSTATE_MACHINE",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/dd3/group__CAR__RUNNER__RTOS__Public__Functions.html#gab4260972786c2001b1a6d4621fe40bb2",tooltip="Task to run application state machine."];
+  Node1 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="taskUPDATE_GAME",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/dd3/group__CAR__RUNNER__RTOS__Public__Functions.html#gae14f03c8b5e26f7111aaffbafbf461f8",tooltip="Task to run game. Waits for user input (from ADXL) and updates LCD."];
+}

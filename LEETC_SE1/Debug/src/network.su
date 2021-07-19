@@ -1,0 +1,10 @@
+network.c:28:17:ntohl	16	static
+network.c:32:13:MQTT_GetInitialiser	32	static
+network.c:37:6:NETWORK_Init	16	static
+network.c:51:6:NETWORK_ConnectToAP	16	static
+network.c:75:10:NETWORK_GetSeconds	104	static
+network.c:116:13:NETWORK_Connect	40	static
+network.c:125:12:NETWORK_Send	16	static
+network.c:130:12:NETWORK_Recv	16	static
+network.c:134:6:NETWORK_PublishScore	16	static
+network.c:138:6:NETWORK_ScorePublisherTask	328	static

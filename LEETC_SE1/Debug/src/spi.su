@@ -1,0 +1,5 @@
+spi.c:19:17:SPI_GetPCLK	4	static
+spi.c:34:6:SPI_Init	4	static
+spi.c:46:9:SPI_ConfigTransfer	24	static
+spi.c:60:9:SPI_Transfer	32	static
+spi.c:73:5:SPI_VerifyFrequency	24	static

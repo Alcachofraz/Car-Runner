@@ -1,0 +1,162 @@
+/**
+* @file		rtc.h
+* @brief	Contains the RTC API.
+* @version	1.0
+* @date		Dec 2020
+* @author	PedroG
+*
+* Copyright(C) 2020-2025, PedroG
+* All rights reserved.
+*/
+
+#ifndef RTC_H_
+#define RTC_H_
+
+/** @defgroup RTC RTC
+ * This package provides the core capabilities for RTC functions.
+ * @{
+ */
+
+/** @defgroup RTC_Public_Functions RTC Public Functions
+ * @{
+ */
+
+
+#include <time.h>
+#include <stdarg.h>
+
+
+/*
+ *
+ *
+ * Constants:
+ *
+ *
+ */
+
+
+/**
+ * @brief	Enable PCONP bit for RTC.
+ */
+#define PCONP_RTC_ENABLE (1 << 9)
+
+/**
+ * @brief	Enable RTC counters.
+ */
+#define RTC_ENABLE 0x01
+
+/**
+ * @brief	Disable RTC counters.
+ */
+#define RTC_DISABLE 0x00
+
+/**
+ * @brief	Interrupt Location bit.
+ */
+#define IL_BIT 0x01
+
+/**
+ * @brief	Interrupt type.
+ */
+typedef enum
+{
+	INONE = 0x00, /*!< to never interrupt. */
+	ISEC = 0x01, /*!< to interrupt every second. */
+	IMIN = 0x02, /*!< to interrupt every minute. */
+	IHOUR = 0x04, /*!< to interrupt every hour. */
+	IDOM = 0x08, /*!< to interrupt every day of month. */
+	IDOW = 0x10, /*!< to interrupt every day of week. */
+	IDOY = 0x20, /*!< to interrupt every day of year. */
+	IMONTH = 0x40, /*!< to interrupt every month. */
+	IYEAR = 0x080, /*!< to interrupt every year. */
+} INTERRUPT;
+
+/**
+ * @brief	Time field.
+ */
+typedef enum
+{
+	IMIN, /*!< Minute field. */
+	IHOUR, /*!< Hour field. */
+	IDOM, /*!< Day of Month field. */
+	IDOW, /*!< Day of Week field. */
+	IMONTH, /*!< Month field. */
+	IYEAR, /*!<Year field. */
+} INTERRUPT;
+
+
+/*
+ *
+ *
+ * Functions:
+ *
+ *
+ */
+
+
+/*
+ * @brief	Initialises the RTC API, with the desired time.
+ * @param   seconds: -> seconds since 01/01/1970.
+ * @param   type: -> INTERRUPT enum to choose an interrupt type.
+ * @param	... -> Pointer to interrupt handler.
+ * @note    If parameter type is INONE, no handler is needed. Only the first 2 parameters will be read.
+ * @note    Only the first 3 parameters can be read. Any other parameters will be ignored.
+ * @note	This function must be called prior to any other RTC functions.
+ */
+void RTC_Init(time_t seconds, INTERRUPT type, ...);
+
+/*
+ * @brief	Sends current RTC time to desired location.
+ * @param   dateTime: -> Desired location.
+ */
+void RTC_GetValue(struct tm *dateTime);
+
+/*
+ * @brief	Sets RTC time value with the desired time.
+ * @param   dateTime: -> Desired time.
+ */
+void RTC_SetValue(struct tm *dateTime);
+
+/*
+ * @brief	Gets the RTC time value.
+ * @return	Seconds since 01/01/1970.
+ */
+time_t RTC_GetSeconds(void);
+
+/*
+ * @brief	Sets RTC time value with the desired seconds, since 01/01/1970.
+ * @param   seconds: -> Desired seconds.
+ */
+void RTC_SetSeconds(time_t seconds);
+
+/*
+ * @brief	Enable RTC counters.
+ */
+void RTC_Enable();
+
+/*
+ * @brief	Disable RTC counters.
+ */
+void RTC_Disable();
+
+/*
+ * @brief	Increment field specified.
+ */
+void RTC_IncrementField(FIELD field);
+
+/*
+ * @brief	Decrement field specified.
+ */
+void RTC_DecrementField();
+
+
+/**
+ * @}
+ */
+
+
+/**
+ * @}
+ */
+
+#endif /* RTC_H_ */

@@ -1,0 +1,78 @@
+/*
+ * spi.c
+ *
+ *  Created on: Dec 2020
+ *      Author: PedroG
+ */
+
+#ifdef __USE_CMSIS
+#include "LPC17xx.h"
+#endif
+
+
+#include "spi.h"
+
+
+static int32_t dummy;
+static void SPI_ClearFlags(void);
+static uint32_t SPI_getPCLK(void);
+
+static void SPI_ClearFlags(void) {
+	// Dummy reads:
+	dummy = LPC_SPI->SPSR; // To clear flags from the Status Register
+	dummy = LPC_SPI->SPDR; // To clear flags from the Data Register
+}
+
+static uint32_t SPI_GetPCLK(void) {
+	switch ((LPC_SC->PCLKSEL0 >> 16) & 0x03) {
+		case 0x00:
+			return SystemCoreClock/4;
+		case 0x01:
+			return SystemCoreClock;
+		case 0x10:
+			return SystemCoreClock/2;
+		case 0x11:
+			return SystemCoreClock/8;
+	}
+}
+
+void SPI_Init(void) {
+	// Configure pins direction:
+	LPC_GPIO2->FIODIR |= CS; // Output
+	LPC_GPIO2->FIODIR |= SCK; // Output
+	LPC_GPIO2->FIODIR |= MOSI; // Output
+	LPC_GPIO2->FIODIR &= ~MISO; // Input
+
+	LPC_SC->PCONP |= SPI_PCONP_ENABLE;
+
+	SPI_ClearFlags();
+}
+
+int32_t SPI_ConfigTransfer(int frequency, int bitData, int mode) {
+	// Validate bitData:
+	if ((bitData < 8) || (bitData > 16)) return -1;
+
+	LPC_SPI->SPCCR = ((SPI_GetPCLK()/frequency) & SPI_CCR_MASK);
+
+	LPC_SPI->SPCR = 0; // Clear everything
+	LPC_SPI->SPCR |= (((bitData << 8) & SPI_CR_BITS_MASK) | MSTR | (mode << 3) | BIT_ENABLE);
+
+	return 0;
+}
+
+int32_t SPI_Transfer(unsigned short *txBuffer, unsigned short *rxBuffer, int lenght) {
+	if (lenght > 16) return -1;
+
+	if (lenght > 8) {
+		LPC_SPI->SPDR = (((*txBuffer) >> 8) & 0xFF);
+		while ((LPC_SPI->SPSR & SPIF_MASK) == 0) {}
+	}
+
+	SPI_ClearFlags();
+
+	LPC_SPI->SPDR = ((*txBuffer) & 0xFF);
+	while ((LPC_SPI->SPSR & SPIF_MASK) == 0) {}
+
+	SPI_ClearFlags();
+}
+
