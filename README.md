@@ -1,13 +1,13 @@
 # Car-Runner
- Pequeno jogo de corrida com obstáculos para sistema embebido (LPC1769, Cortex-M3)
+ Pequeno jogo de corrida com obstáculos para sistema embebido (LPC1769, Cortex-M3).
  
  ![image](https://user-images.githubusercontent.com/75852333/132536528-1f0ae90c-d152-4a8d-8d86-309ac8412ee6.png)
  
 
 ## 1.	Introdução
 
-	No curso de Engenharia Eletrónica e Telecomunicações e de Computadores do Instituto Superior de Engenharia de Lisboa, ao longo das cadeiras de Sistemas Embebidos 1 e Sistemas Embebidos 2, foi desenvolvida uma API documentada de acesso a alguns periféricos. Esta API foi projetada em C, para o microcontrolador LPC1769 da NXP, que utiliza uma arquitetura Cortex-M3.
-	A biblioteca desenvolvida tem como objetivo final a projeção de um pequeno videojogo, que utilizará alguns periféricos. Este relatório não vai abordar tal biblioteca em grande detalhe, sendo o foco principal os procedimentos e métodos utilizados na concepção das várias funcionalidades do videojogo. No entanto, a biblioteca será sucintamente descrita, e a sua documentação será enviada em anexo.
+No curso de Engenharia Eletrónica e Telecomunicações e de Computadores do Instituto Superior de Engenharia de Lisboa, ao longo das cadeiras de Sistemas Embebidos 1 e Sistemas Embebidos 2, foi desenvolvida uma API documentada de acesso a alguns periféricos. Esta API foi projetada em C, para o microcontrolador LPC1769 da NXP, que utiliza uma arquitetura Cortex-M3.
+A biblioteca desenvolvida tem como objetivo final a projeção de um pequeno videojogo, que utilizará alguns periféricos. Este relatório não vai abordar tal biblioteca em grande detalhe, sendo o foco principal os procedimentos e métodos utilizados na concepção das várias funcionalidades do videojogo. No entanto, a biblioteca será sucintamente descrita, e a sua documentação será enviada em anexo.
 	
 
 ## 2.	Descrição do Projeto
