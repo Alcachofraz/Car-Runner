@@ -1,5 +1,5 @@
 # Car-Runner
-    Pequeno jogo de corrida com obstáculos para sistema embebido (LPC1769, Cortex-M3).
+    Pequeno jogo de corrida com obstáculos para sistema embebido (LPC1769, Cortex-M3). Escrito em linguagem C.
  
 ![image](https://user-images.githubusercontent.com/75852333/132536528-1f0ae90c-d152-4a8d-8d86-309ac8412ee6.png)
  
