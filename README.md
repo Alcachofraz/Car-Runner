@@ -136,7 +136,7 @@ A gestão de pontuações consiste no seguinte:
 - Se todas as posições do pódio já estiverem registadas, este só atualizará na presença de uma das seguintes situações:
 	- Se um utilizador registado no pódio obtiver uma pontuação melhor;
 	- Se um utilizador não registado obtiver uma pontuação melhor que o terceiro lugar;
-	- 
+
 Em suma, o programa comporta-se como se armazenasse todas as pontuações, de forma ordenada e sem repetições do utilizador, mas mantendo apenas o pódio.
 
 O algoritmo programático de armazenamento e gestão de pontuações consiste num ciclo com dois objetivos:
