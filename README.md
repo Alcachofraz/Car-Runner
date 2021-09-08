@@ -1,40 +1,40 @@
 # Car-Runner
- Pequeno jogo de corrida com obstáculos para sistema embebido (LPC1769, Cortex-M3).
+    Pequeno jogo de corrida com obstáculos para sistema embebido (LPC1769, Cortex-M3).
  
- ![image](https://user-images.githubusercontent.com/75852333/132536528-1f0ae90c-d152-4a8d-8d86-309ac8412ee6.png)
+![image](https://user-images.githubusercontent.com/75852333/132536528-1f0ae90c-d152-4a8d-8d86-309ac8412ee6.png)
  
 
 ## 1.	Introdução
 
-	No curso de Engenharia Eletrónica e Telecomunicações e de Computadores do Instituto Superior de Engenharia de Lisboa, ao longo das cadeiras de Sistemas Embebidos 1 e Sistemas Embebidos 2, foi desenvolvida uma API documentada de acesso a alguns periféricos. Esta API foi projetada em C, para o microcontrolador LPC1769 da NXP, que utiliza uma arquitetura Cortex-M3.
-	A biblioteca desenvolvida tem como objetivo final a projeção de um pequeno videojogo, que utilizará alguns periféricos. Este relatório não vai abordar tal biblioteca em grande detalhe, sendo o foco principal os procedimentos e métodos utilizados na concepção das várias funcionalidades do videojogo. No entanto, a biblioteca será sucintamente descrita, e a sua documentação será enviada em anexo.
+    No curso de Engenharia Eletrónica e Telecomunicações e de Computadores do Instituto Superior de Engenharia de Lisboa, ao longo das cadeiras de Sistemas Embebidos 1 e Sistemas Embebidos 2, foi desenvolvida uma API documentada de acesso a alguns periféricos. Esta API foi projetada em C, para o microcontrolador LPC1769 da NXP, que utiliza uma arquitetura Cortex-M3.
+    A biblioteca desenvolvida tem como objetivo final a projeção de um pequeno videojogo, que utilizará alguns periféricos. Este relatório não vai abordar tal biblioteca em grande detalhe, sendo o foco principal os procedimentos e métodos utilizados na concepção das várias funcionalidades do videojogo. No entanto, a biblioteca será sucintamente descrita, e a sua documentação será enviada em anexo.
 	
 
 ## 2.	Descrição do Projeto
 
-	O projeto final da cadeira de Sistemas Embebidos 2 consistiu em tirar partido da biblioteca de interface a diferentes periféricos, para criar um mini-jogo de obstáculos. 
-	O programa em si, é composto pelo designado jogo, um menu inicial muito simples, e também um menu com algumas opções configuráveis, como a data, hora, pontuações e nome do utilizador.
-	O jogo consiste em controlar um carro, visível num pequeno LCD, de forma a não chocar com obstáculos (distribuídos aleatoriamente pelo mapa) e a apanhar os galões de combustível (também distribuídos aleatoriamente) de modo a não ficar com o tanque vazio. Se uma pontuação for boa o suficiente (será discutido mais à frente) será guardada na memória local, e será também enviada para um servidor.
-	O projeto completo conta com alguns componentes. Passa-se à enumeração:
-•	NXP LPC1769 Microcontroller;
-•	Step-Up 3.3V para 5V;
-•	LCD 16x2 NMTC-S16205DRGHS;
-•	3 Botões;
-•	Acelerómetro ADXL345;
-•	ESP-01 Wi-Fi Module;
-•	Uma resistência de 1.8kΩ;
-•	Uma resistência de 46kΩ;
-•	Fios de ligação;
+    O projeto final da cadeira de Sistemas Embebidos 2 consistiu em tirar partido da biblioteca de interface a diferentes periféricos, para criar um mini-jogo de obstáculos. 
+    O programa em si, é composto pelo designado jogo, um menu inicial muito simples, e também um menu com algumas opções configuráveis, como a data, hora, pontuações e nome do utilizador.
+    O jogo consiste em controlar um carro, visível num pequeno LCD, de forma a não chocar com obstáculos (distribuídos aleatoriamente pelo mapa) e a apanhar os galões de combustível (também distribuídos aleatoriamente) de modo a não ficar com o tanque vazio. Se uma pontuação for boa o suficiente (será discutido mais à frente) será guardada na memória local, e será também enviada para um servidor.
+    O projeto completo conta com alguns componentes. Passa-se à enumeração:
+• NXP LPC1769 Microcontroller;
+• Step-Up 3.3V para 5V;
+• LCD 16x2 NMTC-S16205DRGHS;
+• 3 Botões;
+• Acelerómetro ADXL345;
+• ESP-01 Wi-Fi Module;
+• Uma resistência de 1.8kΩ;
+• Uma resistência de 46kΩ;
+• Fios de ligação;
 
-	Eis os blocos envolvidos neste sistema:
+    Eis os blocos envolvidos neste sistema:
  
- ![image](https://user-images.githubusercontent.com/75852333/132536584-071b3575-19ef-49ea-84ab-aa80450b88a8.png)
+![image](https://user-images.githubusercontent.com/75852333/132536584-071b3575-19ef-49ea-84ab-aa80450b88a8.png)
  
  
 ## 3.	API de Interface aos Periféricos
 
-	A API conta com os seguintes módulos:
-•	adxl.h – Interface ao acelerómetro ADXL345 (utiliza o módulo spi.h). Apresenta um modo de funcionamento adequado ao FreeRTOS;
+    A API conta com os seguintes módulos:
+• adxl.h – Interface ao acelerómetro ADXL345 (utiliza o módulo spi.h). Apresenta um modo de funcionamento adequado ao FreeRTOS;
 •	button.h – Interface aos 3 botões utilizados no videojogo;
 •	flash.h – Interface à flash do microcontrolador (servirá para guardar algumas pontuações do videojogo, mesmo quando a energia for desligada);
 •	lcd.h – Interface ao LCD 16x2 (onde se desencadeará tanto o jogo, como os menus). Apresenta um modo de funcionamento adequado ao FreeRTOS;
